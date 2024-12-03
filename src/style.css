@@ -43,18 +43,22 @@ body {
   background-color: red;
 }
 
-#court-container {
+#court {
   border: 1px solid white;
   padding: 1rem;
+
   height: 90vh;
+  aspect-ratio: 350 / 580;
   display: flex;
   align-items: center;
+  position: relative;
 }
 
-#court {
+#canvas {
+  outline: 2px solid red;
   height: 100%;
-  max-height: 550px;
-  width: 320px;
+  width: 100%;
   background: url("/assets/court.jpg") no-repeat center;
+  background-size: cover;
   position: relative;
 }
