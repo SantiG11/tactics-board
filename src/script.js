@@ -1,10 +1,9 @@
-const players = document.getElementsByClassName('player');
+const court = document.getElementById('court')
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
+const clearBtn = document.getElementById('clear-btn')
 
-// const playersContainer = document.getElementsByClassName('players-container')
-
-const court = document.getElementById('court')
+const players = document.getElementsByClassName('player');
 
 court.addEventListener('click', () => {
     console.log(court.offsetHeight, court.offsetWidth)
@@ -54,11 +53,16 @@ canvas.addEventListener('mouseup', stopDrawing)
 canvas.addEventListener('mouseleave', stopDrawing)
 window.addEventListener('load', resizeCanvas);
 window.addEventListener('resize', resizeCanvas)
+clearBtn.addEventListener('click', clearCanvas)
 
 let isDrawing = false
 let startX, startY
 let lastX = 0
 let lastY = 0
+
+function clearCanvas() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+}
 
 function resizeCanvas() {
     canvas.width = court.offsetWidth - 35;
