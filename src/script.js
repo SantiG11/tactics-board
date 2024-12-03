@@ -2,12 +2,11 @@ const court = document.getElementById('court')
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 const clearBtn = document.getElementById('clear-btn')
+const undoBtn = document.getElementById('undo-btn')
 
 const players = document.getElementsByClassName('player');
 
-court.addEventListener('click', () => {
-    console.log(court.offsetHeight, court.offsetWidth)
-})
+
 
 for (let i = 0; i < players.length; i++) {
 
@@ -54,14 +53,33 @@ canvas.addEventListener('mouseleave', stopDrawing)
 window.addEventListener('load', resizeCanvas);
 window.addEventListener('resize', resizeCanvas)
 clearBtn.addEventListener('click', clearCanvas)
+undoBtn.addEventListener('click', undo)
 
 let isDrawing = false
 let startX, startY
 let lastX = 0
 let lastY = 0
+let imageData = []
+
+function undo() {
+
+    if (imageData.length > 1) {
+        imageData.pop()
+        console.log('image deleted', imageData)
+        ctx.putImageData(imageData[imageData.length - 1], 0, 0)
+    } else {
+        console.log('canvas empty')
+    }
+
+
+}
 
 function clearCanvas() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
+    let data = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+    imageData.push(data)
+    console.log('image pushed', imageData)
 }
 
 function resizeCanvas() {
@@ -77,9 +95,16 @@ function startDrawing(event) {
     startX = event.clientX - rect.left;
     startY = event.clientY - rect.top;
 
-
     lastX = startX;
     lastY = startY;
+    if (imageData.length < 1) {
+        let data = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+        imageData.push(data)
+        console.log('image pushed', imageData)
+
+    }
+
 
 
 }
@@ -93,25 +118,24 @@ function draw(event) {
 
     ctx.lineWidth = 3
 
-
     ctx.beginPath()
-
-
     ctx.moveTo(lastX, lastY)
-
-
     ctx.lineTo(offsetX, offsetY)
-
     ctx.stroke();
 
     lastX = offsetX;
     lastY = offsetY;
 
-
 }
 
 
 function stopDrawing(event) {
+    if (!isDrawing) return
     isDrawing = false
+    // imageData.push(ctx.getImageData(0, 0, canvas.width, canvas.height))
+    let data = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+    imageData.push(data)
+    console.log('image pushed', imageData)
 }
 
