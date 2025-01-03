@@ -80,7 +80,7 @@ body {
 #court {
   border: 1px solid white;
   padding: 1rem;
-
+  min-height: 330px;
   height: 90vh;
   aspect-ratio: 350 / 580;
   display: flex;

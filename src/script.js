@@ -91,69 +91,105 @@ let startX, startY
 let lastX = 0
 let lastY = 0
 let imageData = []
+let color = '#000'
+let lineWidth = 3
+let currentStroke = []
+
+function getPointFromEvent(e, isNewStroke = false) {
+    const rect = canvas.getBoundingClientRect();
+    return {
+        x: (e.clientX - rect.left) / canvas.width,
+        y: (e.clientY - rect.top) / canvas.height,
+        color: color,
+        lineWidth: lineWidth,
+        isNewStroke: isNewStroke
+    };
+}
+
+function startDrawing(e) {
+    isDrawing = true
+
+    const newPoint = getPointFromEvent(e, true);
+    currentStroke = [newPoint];
+
+    ctx.beginPath();
+    ctx.arc(newPoint.x * canvas.width, newPoint.y * canvas.height, newPoint.lineWidth / 2, 0, 2 * Math.PI);
+    ctx.fillStyle = newPoint.color;
+    ctx.fill();
+}
+
+function draw(e) {
+    if (!isDrawing) return
+
+    const newPoint = getPointFromEvent(e);
+    currentStroke.push(newPoint);
+
+    if (currentStroke.length > 1) {
+        const prevPoint = currentStroke[currentStroke.length - 2];
+        ctx.beginPath();
+        ctx.moveTo(prevPoint.x * canvas.width, prevPoint.y * canvas.height);
+        ctx.lineTo(newPoint.x * canvas.width, newPoint.y * canvas.height);
+        ctx.strokeStyle = newPoint.color;
+        ctx.lineWidth = newPoint.lineWidth;
+        ctx.lineCap = 'round';
+        ctx.stroke();
+    }
+}
+
+function stopDrawing(e) {
+    if (!isDrawing) return
+    isDrawing = false
+    if (currentStroke.length > 0) {
+        imageData.push({ points: currentStroke });
+        currentStroke = [];
+        saveDrawings();
+    }
+}
+
 
 function undo() {
-
-    if (imageData.length > 1) {
-        imageData.pop()
-
-        ctx.putImageData(imageData[imageData.length - 1], 0, 0)
+    if (imageData.length > 0) {
+        imageData.pop();
+        redrawCanvas();
+        saveDrawings();
     }
 }
 
 function clearCanvas() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
-    let data = ctx.getImageData(0, 0, canvas.width, canvas.height);
-
-    imageData.push(data)
+    imageData = [];
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
 function resizeCanvas() {
     canvas.width = court.offsetWidth - 35;
     canvas.height = court.offsetHeight - 35;
-
+    redrawCanvas();
 }
 
-function startDrawing(event) {
-    isDrawing = true
+function redrawCanvas() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    const rect = canvas.getBoundingClientRect();
-    startX = event.clientX - rect.left;
-    startY = event.clientY - rect.top;
 
-    lastX = startX;
-    lastY = startY;
-    if (imageData.length < 1) {
-        let data = ctx.getImageData(0, 0, canvas.width, canvas.height);
-        imageData.push(data)
-    }
+    imageData.forEach(stroke => {
+        if (stroke.points.length < 2) return;
+
+        ctx.beginPath();
+        stroke.points.forEach((point, index) => {
+            if (index === 0 || point.isNewStroke) {
+                ctx.moveTo(point.x * canvas.width, point.y * canvas.height);
+            } else {
+                ctx.lineTo(point.x * canvas.width, point.y * canvas.height);
+            }
+            ctx.strokeStyle = point.color;
+            ctx.lineWidth = point.lineWidth;
+            ctx.lineCap = 'round';
+        });
+        ctx.stroke();
+    });
 }
 
-function draw(event) {
-    if (!isDrawing) return
 
-    const rect = canvas.getBoundingClientRect();
-    const offsetX = event.clientX - rect.left;
-    const offsetY = event.clientY - rect.top;
 
-    ctx.lineWidth = 3
 
-    ctx.beginPath()
-    ctx.moveTo(lastX, lastY)
-    ctx.lineTo(offsetX, offsetY)
-    ctx.stroke();
 
-    lastX = offsetX;
-    lastY = offsetY;
-}
-
-function stopDrawing(event) {
-    if (!isDrawing) return
-    isDrawing = false
-
-    let data = ctx.getImageData(0, 0, canvas.width, canvas.height);
-
-    imageData.push(data)
-
-}
 
