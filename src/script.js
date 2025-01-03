@@ -1,41 +1,11 @@
+
+//Drag and drop section
 const court = document.getElementById('court')
 const ball = document.getElementById('ball')
-const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
-const clearBtn = document.getElementById('clear-btn')
-const undoBtn = document.getElementById('undo-btn')
-
 const players = document.getElementsByClassName('player');
 const attackPlayers = document.getElementsByClassName('attack');
 const defensePlayers = document.getElementsByClassName('defense');
-const defenseBgColorPicker = document.getElementById('background-defense-color')
-const attackBgColorPicker = document.getElementById('background-attack-color')
-const defenseTxtColorPicker = document.getElementById('text-defense-color')
-const attackTxtColorPicker = document.getElementById('text-attack-color')
 
-attackBgColorPicker.addEventListener('change', (e) => {
-    Array.from(attackPlayers).forEach(player => {
-        player.style.backgroundColor = e.target.value
-    });
-})
-
-attackTxtColorPicker.addEventListener('change', (e) => {
-    Array.from(attackPlayers).forEach(player => {
-        player.style.color = e.target.value
-    });
-})
-
-defenseBgColorPicker.addEventListener('change', (e) => {
-    Array.from(defensePlayers).forEach(player => {
-        player.style.backgroundColor = e.target.value
-    });
-})
-
-defenseTxtColorPicker.addEventListener('change', (e) => {
-    Array.from(defensePlayers).forEach(player => {
-        player.style.color = e.target.value
-    });
-})
 
 for (let i = 0; i < players.length; i++) {
 
@@ -77,22 +47,68 @@ court.addEventListener('drop', e => {
     court.appendChild(draggedElement);
 })
 
+
+//Customization section
+
+const defenseBgColorPicker = document.getElementById('background-defense-color')
+const attackBgColorPicker = document.getElementById('background-attack-color')
+const defenseTxtColorPicker = document.getElementById('text-defense-color')
+const attackTxtColorPicker = document.getElementById('text-attack-color')
+
+attackBgColorPicker.addEventListener('change', (e) => {
+    Array.from(attackPlayers).forEach(player => {
+        player.style.backgroundColor = e.target.value
+    });
+})
+
+attackTxtColorPicker.addEventListener('change', (e) => {
+    Array.from(attackPlayers).forEach(player => {
+        player.style.color = e.target.value
+    });
+})
+
+defenseBgColorPicker.addEventListener('change', (e) => {
+    Array.from(defensePlayers).forEach(player => {
+        player.style.backgroundColor = e.target.value
+    });
+})
+
+defenseTxtColorPicker.addEventListener('change', (e) => {
+    Array.from(defensePlayers).forEach(player => {
+        player.style.color = e.target.value
+    });
+})
+
+
+//Drawing section
+
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+const clearBtn = document.getElementById('clear-btn')
+const undoBtn = document.getElementById('undo-btn')
+const resetBtn = document.getElementById('reset-btn')
+
+
 canvas.addEventListener('mousedown', startDrawing)
 canvas.addEventListener('mousemove', draw)
 canvas.addEventListener('mouseup', stopDrawing)
 canvas.addEventListener('mouseleave', stopDrawing)
-window.addEventListener('load', resizeCanvas);
+window.addEventListener('load', () => {
+    resizeCanvas()
+    loadDrawings()
+}
+);
 window.addEventListener('resize', resizeCanvas)
+
+resetBtn.addEventListener('click', resetCanvas)
 clearBtn.addEventListener('click', clearCanvas)
 undoBtn.addEventListener('click', undo)
 
 let isDrawing = false
-let startX, startY
-let lastX = 0
-let lastY = 0
+
 let imageData = []
 let color = '#000'
-let lineWidth = 3
+let lineWidth = 2
 let currentStroke = []
 
 function getPointFromEvent(e, isNewStroke = false) {
@@ -132,6 +148,7 @@ function draw(e) {
         ctx.strokeStyle = newPoint.color;
         ctx.lineWidth = newPoint.lineWidth;
         ctx.lineCap = 'round';
+        // ctx.lineJoin = 'round';
         ctx.stroke();
     }
 }
@@ -157,6 +174,12 @@ function undo() {
 
 function clearCanvas() {
     imageData.push({ clear: true });
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    saveDrawings();
+}
+
+function resetCanvas() {
+    imageData = [];
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     saveDrawings();
 }
@@ -195,7 +218,17 @@ function redrawCanvas() {
     });
 }
 
+function saveDrawings() {
+    localStorage.setItem('basketballTacticsDrawings', JSON.stringify(imageData));
+}
 
+function loadDrawings() {
+    const savedDrawings = localStorage.getItem('basketballTacticsDrawings');
+    if (savedDrawings) {
+        imageData = JSON.parse(savedDrawings);
+        redrawCanvas();
+    }
+}
 
 
 

@@ -78,9 +78,8 @@ body {
 }
 
 #court {
-  border: 1px solid white;
   padding: 1rem;
-  min-height: 330px;
+  min-height: 350px;
   height: 90vh;
   aspect-ratio: 350 / 580;
   display: flex;
@@ -91,7 +90,6 @@ body {
 }
 
 #canvas {
-  outline: 2px solid red;
   height: 100%;
   width: 100%;
   background: url("/assets/court.jpg") no-repeat center;
