@@ -156,8 +156,9 @@ function undo() {
 }
 
 function clearCanvas() {
-    imageData = [];
+    imageData.push({ clear: true });
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    saveDrawings();
 }
 
 function resizeCanvas() {
@@ -171,6 +172,12 @@ function redrawCanvas() {
 
 
     imageData.forEach(stroke => {
+
+        if (stroke.clear) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            return;
+        }
+
         if (stroke.points.length < 2) return;
 
         ctx.beginPath();
