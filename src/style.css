@@ -20,9 +20,10 @@ body {
     "header header header"
     "aside main main"
     "footer footer footer";
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: 10% 1fr 7%;
   grid-template-columns: 20% 1fr;
   height: 100vh;
+  min-height: 500px;
   margin: 0;
 }
 
@@ -56,6 +57,8 @@ footer {
 
 #court {
   min-height: 350px;
+  height: 90%;
+  max-height: calc(100vh - 20%);
   aspect-ratio: 350 / 580;
   display: flex;
   flex-direction: column;

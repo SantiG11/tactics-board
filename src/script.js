@@ -98,11 +98,10 @@ canvas.addEventListener('mousemove', draw)
 canvas.addEventListener('mouseup', stopDrawing)
 canvas.addEventListener('mouseleave', stopDrawing)
 window.addEventListener('load', () => {
-    resizeCanvas()
-    loadDrawings()
+    handleResize()
 }
 );
-window.addEventListener('resize', () => { resizeCanvas(), loadDrawings() })
+window.addEventListener('resize', () => { handleResize() })
 
 resetBtn.addEventListener('click', resetCanvas)
 clearBtn.addEventListener('click', clearCanvas)
@@ -221,6 +220,13 @@ function redrawCanvas() {
         ctx.stroke();
     });
 }
+
+function handleResize() {
+    resizeCanvas();
+    loadDrawings();
+}
+
+
 
 function saveDrawings() {
     localStorage.setItem('basketballTacticsDrawings', JSON.stringify(imageData));
