@@ -8,65 +8,75 @@
     <title>Basketball tactics board</title>
   </head>
   <body>
-    <div class="players-container">
-      <div id="1" class="player attack">1</div>
-      <div id="2" class="player attack">2</div>
-      <div id="3" class="player attack">3</div>
-      <div id="4" class="player attack">4</div>
-      <div id="5" class="player attack">5</div>
-      <div class="color-select-container">
-        background color:
-        <input
-          type="color"
-          name="attack color"
-          id="background-attack-color"
-          value="#000000"
-        />
+    <header>
+      <h1>Basketball tactics board</h1>
+    </header>
+    <main>
+      <div id="court">
+        <div id="ball" draggable="true"></div>
+        <canvas id="canvas" width="320px" height="550px"> </canvas>
+        <div class="buttons">
+          <button id="clear-btn">Clear</button>
+          <button id="undo-btn">Undo</button>
+          <button id="reset-btn">Reset</button>
+        </div>
       </div>
-      <div class="color-select-container">
-        text color:
-        <input
-          type="color"
-          name="attack color"
-          id="text-attack-color"
-          value="#ffffff"
-        />
+    </main>
+    <aside>
+      <div class="players-container">
+        <div id="1" class="player attack">1</div>
+        <div id="2" class="player attack">2</div>
+        <div id="3" class="player attack">3</div>
+        <div id="4" class="player attack">4</div>
+        <div id="5" class="player attack">5</div>
+        <div class="color-select-container">
+          Background color:
+          <input
+            type="color"
+            name="attack color"
+            id="background-attack-color"
+            value="#000000"
+          />
+        </div>
+        <div class="color-select-container">
+          Text color:
+          <input
+            type="color"
+            name="attack color"
+            id="text-attack-color"
+            value="#ffffff"
+          />
+        </div>
       </div>
-    </div>
-    <div id="court">
-      <div id="ball" draggable="true"></div>
-      <canvas id="canvas" width="320px" height="550px"> </canvas>
-      <div class="buttons">
-        <button id="clear-btn">Clear</button>
-        <button id="undo-btn">Undo</button>
-        <button id="reset-btn">Reset</button>
+
+      <div class="players-container">
+        <div id="6" class="player defense">1</div>
+        <div id="7" class="player defense">2</div>
+        <div id="8" class="player defense">3</div>
+        <div id="9" class="player defense">4</div>
+        <div id="10" class="player defense">5</div>
+        <div class="color-select-container">
+          Background color:
+          <input
+            type="color"
+            name="defense background color"
+            id="background-defense-color"
+            value="#0d0df4"
+          />
+        </div>
+        <div class="color-select-container">
+          Text color:
+          <input
+            type="color"
+            name="defense text color"
+            id="text-defense-color"
+            value="#ffffff"
+          />
+        </div>
       </div>
-    </div>
-    <div class="players-container">
-      <div id="6" class="player defense">1</div>
-      <div id="7" class="player defense">2</div>
-      <div id="8" class="player defense">3</div>
-      <div id="9" class="player defense">4</div>
-      <div id="10" class="player defense">5</div>
-      <div class="color-select-container">
-        background color:
-        <input
-          type="color"
-          name="defense background color"
-          id="background-defense-color"
-          value="#0d0df4"
-        />
-      </div>
-      <div class="color-select-container">
-        text color:
-        <input
-          type="color"
-          name="defense text color"
-          id="text-defense-color"
-          value="#ffffff"
-        />
-      </div>
-    </div>
+    </aside>
+
+    <footer></footer>
     <script type="module" src="/src/script.js"></script>
   </body>
 </html>

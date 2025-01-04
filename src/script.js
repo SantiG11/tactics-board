@@ -34,15 +34,19 @@ court.addEventListener('drop', e => {
     const draggedId = e.dataTransfer.getData("text");
     const draggedElement = document.getElementById(draggedId);
 
-    const x = e.clientX - court.offsetLeft - draggedElement.offsetWidth / 2;
-    const y = e.clientY - court.offsetTop - draggedElement.offsetHeight / 2;
+    const courtRect = court.getBoundingClientRect();
 
-    const newX = Math.max(0, Math.min(x, court.offsetWidth - draggedElement.offsetWidth));
-    const newY = Math.max(0, Math.min(y, court.offsetHeight - draggedElement.offsetHeight));
+    const x = e.clientX - courtRect.left - draggedElement.offsetWidth / 2;
+    const y = e.clientY - courtRect.top - draggedElement.offsetHeight / 2;
+
+
+    const newX = Math.max(0, Math.min(x, courtRect.width - draggedElement.offsetWidth));
+    const newY = Math.max(0, Math.min(y, courtRect.height - draggedElement.offsetHeight));
 
     draggedElement.style.position = "absolute";
     draggedElement.style.left = `${newX}px`;
     draggedElement.style.top = `${newY}px`;
+    draggedElement.style.transform = 'none';
 
     court.appendChild(draggedElement);
 })
@@ -98,7 +102,7 @@ window.addEventListener('load', () => {
     loadDrawings()
 }
 );
-window.addEventListener('resize', resizeCanvas)
+window.addEventListener('resize', () => { resizeCanvas(), loadDrawings() })
 
 resetBtn.addEventListener('click', resetCanvas)
 clearBtn.addEventListener('click', clearCanvas)
@@ -185,8 +189,8 @@ function resetCanvas() {
 }
 
 function resizeCanvas() {
-    canvas.width = court.offsetWidth - 35;
-    canvas.height = court.offsetHeight - 35;
+    canvas.width = court.offsetWidth;
+    canvas.height = court.offsetHeight;
     redrawCanvas();
 }
 
