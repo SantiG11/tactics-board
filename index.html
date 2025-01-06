@@ -23,15 +23,11 @@
       </div>
     </main>
     <aside>
-      <div class="players-container">
-        <div id="1" class="player attack">1</div>
-        <div id="2" class="player attack">2</div>
-        <div id="3" class="player attack">3</div>
-        <div id="4" class="player attack">4</div>
-        <div id="5" class="player attack">5</div>
+      <div class="players-section">
         <div class="color-select-container">
-          Background color:
+          Background color
           <input
+            class="color-select"
             type="color"
             name="attack color"
             id="background-attack-color"
@@ -39,25 +35,30 @@
           />
         </div>
         <div class="color-select-container">
-          Text color:
+          Text color
           <input
+            class="color-select"
             type="color"
             name="attack color"
             id="text-attack-color"
             value="#ffffff"
           />
         </div>
+
+        <div class="players-container">
+          <div id="1" class="player attack">1</div>
+          <div id="2" class="player attack">2</div>
+          <div id="3" class="player attack">3</div>
+          <div id="4" class="player attack">4</div>
+          <div id="5" class="player attack">5</div>
+        </div>
       </div>
 
-      <div class="players-container">
-        <div id="6" class="player defense">1</div>
-        <div id="7" class="player defense">2</div>
-        <div id="8" class="player defense">3</div>
-        <div id="9" class="player defense">4</div>
-        <div id="10" class="player defense">5</div>
+      <div class="players-section">
         <div class="color-select-container">
-          Background color:
+          Background color
           <input
+            class="color-select"
             type="color"
             name="defense background color"
             id="background-defense-color"
@@ -65,13 +66,22 @@
           />
         </div>
         <div class="color-select-container">
-          Text color:
+          Text color
           <input
+            class="color-select"
             type="color"
             name="defense text color"
             id="text-defense-color"
             value="#ffffff"
           />
+        </div>
+          <div class="players-container">
+            <div id="6" class="player defense">1</div>
+            <div id="7" class="player defense">2</div>
+            <div id="8" class="player defense">3</div>
+            <div id="9" class="player defense">4</div>
+            <div id="10" class="player defense">5</div>
+          </div>
         </div>
       </div>
     </aside>

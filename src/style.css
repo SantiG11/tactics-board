@@ -39,7 +39,11 @@ header {
 aside {
   grid-area: aside;
   border: 1px solid red;
-  padding: 1rem;
+
+  min-width: fit-content;
+  overflow: scroll;
+  scrollbar-width: none; /* For Firefox */
+  -ms-overflow-style: none;
 }
 
 main {
@@ -87,11 +91,21 @@ footer {
   transform: translate(-50%, -50%);
 }
 
-.players-container {
+.players-section {
   border: 1px solid #fff;
   padding: 1rem;
   display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  gap: 1.5rem;
   flex-wrap: wrap;
+  margin: 1rem;
+}
+
+.players-container {
+  display: flex;
+  gap: 1rem;
 }
 
 .player {
@@ -115,8 +129,31 @@ footer {
 
 .color-select-container {
   display: flex;
+  flex-direction: column;
   justify-content: end;
-  align-items: center;
+  align-items: start;
+  gap: 0.5rem;
+}
 
-  gap: 1rem;
+.color-select {
+  appearance: none; /* Removes default browser styles */
+  -webkit-appearance: none; /* For Safari */
+  width: 1.5rem; /* Set the width of the circle */
+  height: 1.5rem; /* Set the height of the circle */
+  border: 1px solid #000; /* Remove default border */
+  background-color: transparent;
+  border-radius: 50%; /* Make it circular */
+  overflow: hidden; /* Ensure it clips to the circular shape */
+  cursor: pointer; /* Change cursor to indicate interactivity */
+  padding: 0; /* Remove padding */
+}
+
+.color-select::-webkit-color-swatch {
+  border: none;
+  border-radius: 50%;
+}
+
+.color-select::-webkit-color-swatch-wrapper {
+  padding: 0;
+  border-radius: 50%;
 }
