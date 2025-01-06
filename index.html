@@ -16,14 +16,10 @@
         <div id="ball" draggable="true"></div>
         <canvas id="canvas"> </canvas>
       </div>
-      <div class="buttons">
-        <button id="clear-btn">Clear</button>
-        <button id="undo-btn">Undo</button>
-        <button id="reset-btn">Reset</button>
-      </div>
     </main>
     <aside>
-      <div class="players-section">
+      <section class="players-section">
+        <h2>Attack team</h2>
         <div class="color-select-container">
           Background color
           <input
@@ -52,9 +48,10 @@
           <div id="4" class="player attack">4</div>
           <div id="5" class="player attack">5</div>
         </div>
-      </div>
+      </section>
 
-      <div class="players-section">
+      <section class="players-section">
+        <h2>Defense team</h2>
         <div class="color-select-container">
           Background color
           <input
@@ -75,18 +72,23 @@
             value="#ffffff"
           />
         </div>
-          <div class="players-container">
-            <div id="6" class="player defense">1</div>
-            <div id="7" class="player defense">2</div>
-            <div id="8" class="player defense">3</div>
-            <div id="9" class="player defense">4</div>
-            <div id="10" class="player defense">5</div>
-          </div>
+        <div class="players-container">
+          <div id="6" class="player defense">1</div>
+          <div id="7" class="player defense">2</div>
+          <div id="8" class="player defense">3</div>
+          <div id="9" class="player defense">4</div>
+          <div id="10" class="player defense">5</div>
         </div>
-      </div>
+      </section>
     </aside>
 
-    <footer></footer>
+    <footer>
+      <div class="buttons">
+        <button id="clear-btn">Clear</button>
+        <button id="undo-btn">Undo</button>
+        <button id="reset-btn">Reset</button>
+      </div>
+    </footer>
     <script type="module" src="/src/script.js"></script>
   </body>
 </html>
