@@ -9,7 +9,16 @@
   </head>
   <body>
     <header>
-      <h1>Basketball tactics board</h1>
+      <button id="open-btn" class="hidden">
+        <svg width="16" height="15" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M16 12v3H0v-3h16Zm0-6v3H0V6h16Zm0-6v3H0V0h16Z"
+            fill="#69707D"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </button>
+      <h1>Tactics Board</h1>
     </header>
     <main>
       <div id="court">
@@ -17,7 +26,7 @@
         <canvas id="canvas"> </canvas>
       </div>
     </main>
-    <aside>
+    <aside id="side-bar" class="hidden">
       <section class="players-section">
         <h2>Attack team</h2>
         <div class="color-select-container">
@@ -84,9 +93,9 @@
 
     <footer>
       <div class="buttons">
-        <button id="clear-btn">Clear</button>
-        <button id="undo-btn">Undo</button>
-        <button id="reset-btn">Reset</button>
+        <button id="clear-btn" class="canvas-btn">Clear</button>
+        <button id="undo-btn" class="canvas-btn">Undo</button>
+        <button id="reset-btn" class="canvas-btn">Reset</button>
       </div>
     </footer>
     <script type="module" src="/src/script.js"></script>

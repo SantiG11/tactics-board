@@ -68,6 +68,26 @@ footer {
   border-top: 4px solid #000;
 }
 
+button:hover {
+  cursor: pointer;
+}
+
+#open-btn {
+  position: absolute;
+  left: 1rem;
+  border: none;
+  background: transparent;
+  padding: 5px;
+}
+
+#open-btn svg path {
+  fill: #cccccc;
+}
+
+.hidden {
+  display: none;
+}
+
 /* ---------- Court --------- */
 
 #court {
@@ -100,6 +120,11 @@ footer {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.player:hover,
+#ball:hover {
+  cursor: pointer;
 }
 
 /* ---------- Side bar --------- */
@@ -181,7 +206,7 @@ footer {
   gap: 1.5rem;
 }
 
-button {
+.canvas-btn {
   padding: 5px 10px;
   font-size: 12px;
   background-color: transparent;
@@ -189,4 +214,50 @@ button {
   border-color: var(--button);
   font-weight: 600;
   border-radius: 1rem;
+}
+
+@media (max-width: 1024px) {
+  #side-bar {
+    position: absolute;
+    left: 0;
+    top: 10%;
+    height: 90%;
+    border-right: none;
+    z-index: 15;
+  }
+}
+
+@media (max-width: 800px) {
+  body {
+    display: grid;
+    grid-template-areas:
+      " header "
+      " main "
+      " footer ";
+    grid-template-rows: 10% 1fr 7%;
+    grid-template-columns: 1fr;
+    height: 100vh;
+    min-height: 500px;
+    margin: 0;
+    background-color: var(--primary-bg);
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+
+  h2 {
+    font-size: 18px;
+  }
+
+  .players-section {
+    margin: 8px;
+    padding: 8px;
+  }
+
+  .player {
+    height: 1rem;
+    width: 1rem;
+    padding: 12px;
+  }
 }

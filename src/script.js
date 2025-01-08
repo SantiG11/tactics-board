@@ -1,3 +1,25 @@
+//Show/hide side 
+
+const openSideBtn = document.getElementById('open-btn');
+const sideBar = document.getElementById('side-bar')
+
+openSideBtn.addEventListener('click', () => {
+    sideBar.classList.toggle('hidden')
+
+})
+
+const displaySideAndButton = () => {
+    if (window.innerWidth < 1024) {
+        sideBar.classList.add('hidden'),
+            openSideBtn.classList.remove('hidden')
+    } else {
+        sideBar.classList.remove('hidden'),
+            openSideBtn.classList.add('hidden')
+    }
+}
+
+
+
 
 //Drag and drop section
 const court = document.getElementById('court')
@@ -98,10 +120,15 @@ canvas.addEventListener('mousemove', draw)
 canvas.addEventListener('mouseup', stopDrawing)
 canvas.addEventListener('mouseleave', stopDrawing)
 window.addEventListener('load', () => {
-    handleResize()
+    displaySideAndButton(),
+        handleResize()
+
 }
 );
-window.addEventListener('resize', () => { handleResize() })
+window.addEventListener('resize', () => {
+    handleResize(),
+        displaySideAndButton()
+})
 
 resetBtn.addEventListener('click', resetCanvas)
 clearBtn.addEventListener('click', clearCanvas)
